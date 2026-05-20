@@ -320,6 +320,26 @@
         font-size: 0.98rem;
       }
 
+      .update-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .update-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 34px;
+        padding: 8px 11px;
+        border: 1px solid rgba(248, 250, 246, 0.16);
+        border-radius: 8px;
+        background: rgba(248, 250, 246, 0.06);
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 760;
+      }
+
       .section {
         padding: 84px clamp(18px, 5vw, 72px);
       }
@@ -349,6 +369,133 @@
         margin: 0;
         color: var(--muted);
         line-height: 1.8;
+      }
+
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .news-card {
+        min-height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(150deg, rgba(183, 255, 82, 0.18), transparent 48%),
+          rgba(248, 250, 246, 0.07);
+        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.2);
+      }
+
+      .news-card:nth-child(2) {
+        background:
+          linear-gradient(150deg, rgba(255, 209, 102, 0.18), transparent 50%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .news-card:nth-child(3) {
+        background:
+          linear-gradient(150deg, rgba(96, 195, 255, 0.2), transparent 50%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .news-card:nth-child(4) {
+        background:
+          linear-gradient(150deg, rgba(255, 79, 95, 0.18), transparent 50%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .news-card h3 {
+        margin: 0 0 12px;
+        font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+        line-height: 1.18;
+      }
+
+      .news-card p {
+        margin: 0;
+        color: #dae5d7;
+        line-height: 1.72;
+      }
+
+      .source-tag {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .result-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .result-group {
+        min-height: 310px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(248, 250, 246, 0.065);
+        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.18);
+      }
+
+      .result-group.featured {
+        background:
+          linear-gradient(150deg, rgba(183, 255, 82, 0.16), transparent 55%),
+          rgba(248, 250, 246, 0.075);
+      }
+
+      .result-group h3 {
+        margin: 0 0 14px;
+        font-size: 1rem;
+        letter-spacing: 0;
+      }
+
+      .result-list {
+        display: grid;
+        gap: 1px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--line);
+      }
+
+      .result-row {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 12px;
+        align-items: center;
+        min-height: 45px;
+        padding: 10px 12px;
+        background: rgba(7, 17, 12, 0.68);
+        font-size: 0.9rem;
+      }
+
+      .result-row span:first-child {
+        color: #e7f0e3;
+      }
+
+      .result-row span:last-child {
+        color: #e7f0e3;
+        text-align: right;
+      }
+
+      .result-row strong {
+        min-width: 48px;
+        color: var(--gold);
+        text-align: center;
+        font-size: 0.95rem;
+      }
+
+      .result-note {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.65;
       }
 
       .feature-grid {
@@ -533,6 +680,11 @@
           display: grid;
         }
 
+        .news-grid,
+        .result-board {
+          grid-template-columns: 1fr;
+        }
+
         .feature-grid {
           grid-template-columns: 1fr;
         }
@@ -582,6 +734,16 @@
           grid-column: 2;
         }
 
+        .result-row {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+
+        .result-row strong,
+        .result-row span:last-child {
+          text-align: left;
+        }
+
         .player {
           grid-template-columns: 48px 1fr;
           gap: 14px;
@@ -611,6 +773,8 @@
       </a>
       <nav aria-label="ページ内ナビゲーション">
         <a href="#match">Match</a>
+        <a href="#news">News</a>
+        <a href="#results">Results</a>
         <a href="#squad">Squad</a>
         <a href="#tickets">Tickets</a>
       </nav>
@@ -663,6 +827,129 @@
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="section" id="news">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title">Latest football<br>news desk.</h2>
+            <p class="section-lead">
+              2026年5月20日時点の欧州サッカー主要ニュースを、試合前に読みやすい短いトピックでまとめています。
+            </p>
+          </div>
+          <div class="update-strip" aria-label="更新情報">
+            <span class="update-pill">Updated 2026.05.20</span>
+            <span class="update-pill">欧州五大リーグ + UEFA competitions</span>
+          </div>
+          <div class="news-grid">
+            <article class="news-card">
+              <span class="source-tag">Premier League</span>
+              <div>
+                <h3>アーセナルが22年ぶりにリーグ制覇</h3>
+                <p>マンチェスター・シティがボーンマスと1-1で引き分け、アーセナルの優勝が決定。終盤戦の主役が一気に変わりました。</p>
+              </div>
+            </article>
+            <article class="news-card">
+              <span class="source-tag">FA Cup</span>
+              <div>
+                <h3>シティがFAカップ決勝を制す</h3>
+                <p>チェルシーとの決勝は1-0。アントワーヌ・セメニョの一撃で、マンチェスター・シティが国内カップを掲げました。</p>
+              </div>
+            </article>
+            <article class="news-card">
+              <span class="source-tag">UEFA Champions League</span>
+              <div>
+                <h3>CL決勝はパリ対アーセナル</h3>
+                <p>2025/26シーズンの決勝は5月30日、ブダペストのプスカシュ・アレーナで開催予定です。</p>
+              </div>
+            </article>
+            <article class="news-card">
+              <span class="source-tag">UEFA Europa League</span>
+              <div>
+                <h3>EL決勝はフライブルク対アストン・ヴィラ</h3>
+                <p>舞台はイスタンブールのベシクタシュ・パーク。決勝は5月20日21:00 CETキックオフです。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="results">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title">Recent results<br>across Europe.</h2>
+            <p class="section-lead">
+              欧州五大リーグと主要大会の直近スコアを、スマホでも追いやすいリーグ別ボードにしました。
+            </p>
+          </div>
+          <div class="result-board">
+            <article class="result-group featured">
+              <h3>Premier League</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Bournemouth</span><strong>1-1</strong><span>Man City</span></div>
+                <div class="result-row"><span>Chelsea</span><strong>2-1</strong><span>Tottenham</span></div>
+                <div class="result-row"><span>Arsenal</span><strong>1-0</strong><span>Burnley</span></div>
+                <div class="result-row"><span>Man United</span><strong>3-2</strong><span>Nott'm Forest</span></div>
+                <div class="result-row"><span>Newcastle</span><strong>3-1</strong><span>West Ham</span></div>
+              </div>
+              <p class="result-note">直近更新: 5月19日まで</p>
+            </article>
+            <article class="result-group">
+              <h3>La Liga</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Barcelona</span><strong>3-1</strong><span>Real Betis</span></div>
+                <div class="result-row"><span>Sevilla</span><strong>0-1</strong><span>Real Madrid</span></div>
+                <div class="result-row"><span>Real Sociedad</span><strong>3-4</strong><span>Valencia</span></div>
+                <div class="result-row"><span>Atletico</span><strong>1-0</strong><span>Girona</span></div>
+                <div class="result-row"><span>Athletic Club</span><strong>1-1</strong><span>Celta Vigo</span></div>
+              </div>
+              <p class="result-note">直近更新: 5月17日まで</p>
+            </article>
+            <article class="result-group">
+              <h3>Serie A</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Roma</span><strong>2-0</strong><span>Lazio</span></div>
+                <div class="result-row"><span>Como</span><strong>1-0</strong><span>Parma</span></div>
+                <div class="result-row"><span>Genoa</span><strong>1-2</strong><span>AC Milan</span></div>
+                <div class="result-row"><span>Juventus</span><strong>0-2</strong><span>Fiorentina</span></div>
+                <div class="result-row"><span>Pisa</span><strong>0-3</strong><span>Napoli</span></div>
+              </div>
+              <p class="result-note">直近更新: 5月17日まで</p>
+            </article>
+            <article class="result-group">
+              <h3>Bundesliga</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Bayern</span><strong>5-1</strong><span>Cologne</span></div>
+                <div class="result-row"><span>Werder Bremen</span><strong>0-2</strong><span>Dortmund</span></div>
+                <div class="result-row"><span>SC Freiburg</span><strong>4-1</strong><span>RB Leipzig</span></div>
+                <div class="result-row"><span>Union Berlin</span><strong>4-0</strong><span>Augsburg</span></div>
+                <div class="result-row"><span>Leverkusen</span><strong>1-1</strong><span>Hamburg</span></div>
+              </div>
+              <p class="result-note">直近更新: 5月16日まで</p>
+            </article>
+            <article class="result-group">
+              <h3>Ligue 1</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Paris FC</span><strong>2-1</strong><span>PSG</span></div>
+                <div class="result-row"><span>Strasbourg</span><strong>5-4</strong><span>Monaco</span></div>
+                <div class="result-row"><span>Marseille</span><strong>3-1</strong><span>Rennes</span></div>
+                <div class="result-row"><span>Lyon</span><strong>0-4</strong><span>RC Lens</span></div>
+                <div class="result-row"><span>Lille</span><strong>0-2</strong><span>Auxerre</span></div>
+              </div>
+              <p class="result-note">直近更新: 5月17日まで</p>
+            </article>
+            <article class="result-group featured">
+              <h3>Major Competitions</h3>
+              <div class="result-list">
+                <div class="result-row"><span>Chelsea</span><strong>0-1</strong><span>Man City</span></div>
+                <div class="result-row"><span>Freiburg</span><strong>5/20</strong><span>Aston Villa</span></div>
+                <div class="result-row"><span>Barcelona</span><strong>5/23</strong><span>OL Lyonnes</span></div>
+                <div class="result-row"><span>Paris SG</span><strong>5/30</strong><span>Arsenal</span></div>
+              </div>
+              <p class="result-note">FA Cup結果とUEFA決勝予定</p>
+            </article>
+          </div>
         </div>
       </section>
 
