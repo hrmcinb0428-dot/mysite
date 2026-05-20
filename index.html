@@ -3,56 +3,884 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Site</title>
+    <title>PitchSide FC</title>
     <style>
       :root {
-        color-scheme: light dark;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        line-height: 1.6;
-        color: #1f2937;
-        background: #f8fafc;
+        color-scheme: dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: #f8faf6;
+        background: #07110c;
+        --ink: #f8faf6;
+        --muted: #b8c3b4;
+        --line: rgba(248, 250, 246, 0.15);
+        --panel: rgba(248, 250, 246, 0.075);
+        --pitch: #0f6b3d;
+        --pitch-deep: #07110c;
+        --lime: #b7ff52;
+        --sky: #60c3ff;
+        --red: #ff4f5f;
+        --gold: #ffd166;
+        --shadow: 0 24px 72px rgba(0, 0, 0, 0.36);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
       }
 
       body {
         margin: 0;
         min-height: 100vh;
-        display: grid;
-        place-items: center;
+        background:
+          linear-gradient(120deg, rgba(183, 255, 82, 0.12), transparent 32%),
+          linear-gradient(250deg, rgba(96, 195, 255, 0.12), transparent 36%),
+          #07110c;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -3;
+        pointer-events: none;
+        content: "";
+        background-image:
+          linear-gradient(rgba(248, 250, 246, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(248, 250, 246, 0.045) 1px, transparent 1px);
+        background-size: 56px 56px;
+        mask-image: linear-gradient(to bottom, #000 0%, transparent 76%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 20;
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px clamp(18px, 4vw, 56px);
+        background: rgba(7, 17, 12, 0.76);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(18px);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 850;
+      }
+
+      .brand-mark {
+        position: relative;
+        width: 36px;
+        height: 36px;
+        border: 2px solid rgba(248, 250, 246, 0.88);
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 50%, #07110c 0 21%, transparent 22%),
+          conic-gradient(from 18deg, #f8faf6 0 10%, #07110c 10% 20%, #f8faf6 20% 30%, #07110c 30% 40%, #f8faf6 40% 50%, #07110c 50% 60%, #f8faf6 60% 70%, #07110c 70% 80%, #f8faf6 80% 90%, #07110c 90% 100%);
+        box-shadow: 0 0 26px rgba(183, 255, 82, 0.24);
+      }
+
+      .brand span:last-child {
+        letter-spacing: 0;
+      }
+
+      nav {
+        display: flex;
+        gap: clamp(14px, 3vw, 34px);
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      nav a {
+        transition: color 180ms ease;
+      }
+
+      nav a:hover {
+        color: var(--ink);
       }
 
       main {
-        width: min(92vw, 720px);
-        padding: 48px 0;
+        position: relative;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 92vh;
+        display: grid;
+        align-items: end;
+        padding: 118px clamp(18px, 5vw, 72px) 56px;
+        overflow: hidden;
+      }
+
+      .hero-canvas {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero::after {
+        position: absolute;
+        inset: auto 0 0;
+        z-index: -1;
+        height: 44%;
+        pointer-events: none;
+        content: "";
+        background: linear-gradient(to top, #07110c 7%, rgba(7, 17, 12, 0));
+      }
+
+      .hero-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1.08fr) minmax(290px, 0.62fr);
+        gap: clamp(28px, 6vw, 84px);
+        align-items: end;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 22px;
+        color: var(--lime);
+        font-size: 0.83rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        width: 28px;
+        height: 2px;
+        content: "";
+        background: var(--lime);
       }
 
       h1 {
-        margin: 0 0 16px;
-        font-size: clamp(2rem, 6vw, 4rem);
+        max-width: 900px;
+        margin: 0;
+        font-size: clamp(3.25rem, 10.5vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .hero-copy {
+        max-width: 650px;
+        margin: 28px 0 0;
+        color: #dce6d8;
+        font-size: clamp(1.05rem, 2vw, 1.32rem);
+        line-height: 1.8;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        min-height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 13px 18px;
+        border: 1px solid rgba(248, 250, 246, 0.22);
+        border-radius: 8px;
+        background: rgba(248, 250, 246, 0.08);
+        color: var(--ink);
+        font-weight: 800;
+        box-shadow: var(--shadow);
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease,
+          background 180ms ease;
+      }
+
+      .button.primary {
+        background: var(--lime);
+        color: #07110c;
+        border-color: var(--lime);
+      }
+
+      .button:hover {
+        transform: translateY(-2px);
+        border-color: rgba(248, 250, 246, 0.48);
+      }
+
+      .match-panel {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(7, 17, 12, 0.66);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(20px);
+      }
+
+      .match-panel h2 {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      .scoreboard {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 14px;
+        align-items: center;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(248, 250, 246, 0.06);
+      }
+
+      .team {
+        display: grid;
+        gap: 8px;
+      }
+
+      .team:last-child {
+        text-align: right;
+      }
+
+      .team strong {
+        font-size: clamp(1.3rem, 3vw, 2rem);
+        line-height: 1;
+      }
+
+      .team span {
+        color: var(--muted);
+        font-size: 0.76rem;
+        font-weight: 720;
+        text-transform: uppercase;
+      }
+
+      .versus {
+        width: 48px;
+        height: 48px;
+        display: grid;
+        place-items: center;
+        border: 1px solid rgba(248, 250, 246, 0.25);
+        border-radius: 50%;
+        color: var(--lime);
+        font-weight: 850;
+      }
+
+      .fixture-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .fixture {
+        display: grid;
+        grid-template-columns: 64px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 13px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .fixture:last-child {
+        border-bottom: 0;
+      }
+
+      .fixture time {
+        color: var(--gold);
+        font-weight: 850;
+      }
+
+      .fixture span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .fixture strong {
+        font-size: 0.98rem;
+      }
+
+      .section {
+        padding: 84px clamp(18px, 5vw, 72px);
+      }
+
+      .section-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 28px;
+        margin-bottom: 32px;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 4.5rem);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .section-lead {
+        max-width: 470px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+
+      .feature-card {
+        min-height: 320px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          linear-gradient(145deg, rgba(248, 250, 246, 0.1), rgba(248, 250, 246, 0.035)),
+          var(--panel);
+        box-shadow: 0 18px 52px rgba(0, 0, 0, 0.22);
+        transition:
+          transform 180ms ease,
+          border-color 180ms ease;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(248, 250, 246, 0.34);
+      }
+
+      .feature-card:nth-child(1) {
+        background:
+          linear-gradient(155deg, rgba(183, 255, 82, 0.28), transparent 58%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .feature-card:nth-child(2) {
+        background:
+          linear-gradient(155deg, rgba(96, 195, 255, 0.27), transparent 58%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .feature-card:nth-child(3) {
+        background:
+          linear-gradient(155deg, rgba(255, 79, 95, 0.28), transparent 58%),
+          rgba(248, 250, 246, 0.07);
+      }
+
+      .card-index {
+        color: var(--muted);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .feature-card h3 {
+        margin: 0 0 14px;
+        font-size: clamp(1.35rem, 3vw, 2rem);
         line-height: 1.1;
       }
 
-      p {
+      .feature-card p {
         margin: 0;
-        font-size: 1.125rem;
-        color: #4b5563;
+        color: #dae5d7;
+        line-height: 1.75;
       }
 
-      @media (prefers-color-scheme: dark) {
-        :root {
-          color: #f9fafb;
-          background: #111827;
+      .squad {
+        display: grid;
+        grid-template-columns: 0.86fr 1.14fr;
+        gap: clamp(28px, 5vw, 64px);
+        align-items: start;
+      }
+
+      .squad-copy {
+        position: sticky;
+        top: 110px;
+      }
+
+      .player-list {
+        display: grid;
+        border-top: 1px solid var(--line);
+      }
+
+      .player {
+        display: grid;
+        grid-template-columns: 72px 1fr auto;
+        gap: 22px;
+        align-items: center;
+        padding: 26px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .player-number {
+        color: var(--gold);
+        font-size: 1.65rem;
+        font-weight: 900;
+      }
+
+      .player h3 {
+        margin: 0 0 8px;
+        font-size: 1.36rem;
+      }
+
+      .player p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .position {
+        min-width: 54px;
+        padding: 8px 10px;
+        border: 1px solid rgba(248, 250, 246, 0.18);
+        border-radius: 8px;
+        color: var(--lime);
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .contact-band {
+        padding: 70px clamp(18px, 5vw, 72px) 86px;
+        background: #f8faf6;
+        color: #07110c;
+      }
+
+      .contact-inner {
+        width: min(1180px, 100%);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .contact-band h2 {
+        margin: 0;
+        font-size: clamp(2.4rem, 7vw, 6rem);
+        line-height: 0.94;
+        letter-spacing: 0;
+      }
+
+      .contact-band p {
+        max-width: 560px;
+        margin: 18px 0 0;
+        color: #425047;
+        line-height: 1.8;
+      }
+
+      .contact-band .button {
+        background: #07110c;
+        color: #f8faf6;
+        box-shadow: none;
+      }
+
+      @media (max-width: 860px) {
+        .site-header {
+          min-height: 64px;
         }
 
-        p {
-          color: #d1d5db;
+        nav {
+          display: none;
+        }
+
+        .hero {
+          min-height: 94vh;
+          padding-top: 96px;
+        }
+
+        .hero-inner,
+        .squad,
+        .contact-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .match-panel {
+          width: min(100%, 500px);
+        }
+
+        .section-header {
+          display: grid;
+        }
+
+        .feature-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .feature-card {
+          min-height: 250px;
+        }
+
+        .squad-copy {
+          position: static;
+        }
+
+        .contact-inner {
+          align-items: start;
+        }
+      }
+
+      @media (max-width: 520px) {
+        h1 {
+          font-size: clamp(3rem, 17vw, 5rem);
+        }
+
+        .hero-actions,
+        .contact-inner .button,
+        .button {
+          width: 100%;
+        }
+
+        .scoreboard {
+          grid-template-columns: 1fr;
+        }
+
+        .team:last-child {
+          text-align: left;
+        }
+
+        .versus {
+          width: 42px;
+          height: 42px;
+        }
+
+        .fixture {
+          grid-template-columns: 54px 1fr;
+        }
+
+        .fixture strong {
+          grid-column: 2;
+        }
+
+        .player {
+          grid-template-columns: 48px 1fr;
+          gap: 14px;
+        }
+
+        .position {
+          grid-column: 2;
+          justify-self: start;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition: none !important;
         }
       }
     </style>
   </head>
   <body>
-    <main>
-      <h1>My Site</h1>
-      <p>GitHub Pagesで公開するシンプルなWebサイトです。</p>
+    <header class="site-header" aria-label="サイトヘッダー">
+      <a class="brand" href="#top" aria-label="PitchSide FC ホーム">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>PitchSide FC</span>
+      </a>
+      <nav aria-label="ページ内ナビゲーション">
+        <a href="#match">Match</a>
+        <a href="#squad">Squad</a>
+        <a href="#tickets">Tickets</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="PitchSide FC">
+        <canvas class="hero-canvas" id="pitchCanvas" aria-hidden="true"></canvas>
+        <div class="hero-inner">
+          <div>
+            <p class="eyebrow">Football matchday hub</p>
+            <h1>サッカーをもっと近くに。</h1>
+            <p class="hero-copy">
+              PitchSide FC は、試合の熱、選手の個性、スタジアムで過ごす時間をひとつにまとめたサッカー系ウェブサイトです。
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#match">試合情報を見る</a>
+              <a class="button" href="#tickets">チケットへ</a>
+            </div>
+          </div>
+
+          <aside class="match-panel" id="match" aria-label="次の試合">
+            <h2>Next Match</h2>
+            <div class="scoreboard">
+              <div class="team">
+                <span>Home</span>
+                <strong>PSF</strong>
+              </div>
+              <div class="versus">VS</div>
+              <div class="team">
+                <span>Away</span>
+                <strong>RIV</strong>
+              </div>
+            </div>
+            <div class="fixture-list" aria-label="試合予定">
+              <div class="fixture">
+                <time datetime="2026-06-06">6/6</time>
+                <span>リーグ戦</span>
+                <strong>19:00 Kickoff</strong>
+              </div>
+              <div class="fixture">
+                <time datetime="2026-06-13">6/13</time>
+                <span>カップ戦</span>
+                <strong>Home Stand</strong>
+              </div>
+              <div class="fixture">
+                <time datetime="2026-06-20">6/20</time>
+                <span>アウェイ</span>
+                <strong>River City</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section" id="tickets">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2 class="section-title">Matchdayを<br>一気に確認。</h2>
+            <p class="section-lead">
+              試合前に知りたい情報を、チームニュース、観戦ガイド、スタジアム体験に分けて整理しています。
+            </p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="card-index">01 / Match Preview</span>
+              <div>
+                <h3>キックオフ前の見どころ</h3>
+                <p>予想フォーメーション、注目マッチアップ、直近の流れを読みやすくまとめます。</p>
+              </div>
+            </article>
+            <article class="feature-card">
+              <span class="card-index">02 / Stadium Guide</span>
+              <div>
+                <h3>迷わず動ける観戦導線</h3>
+                <p>入場ゲート、フード、グッズ、帰りの動きまで、スマホで見やすい情報設計にしています。</p>
+              </div>
+            </article>
+            <article class="feature-card">
+              <span class="card-index">03 / Fan Zone</span>
+              <div>
+                <h3>応援が楽しくなる余白</h3>
+                <p>チャント、写真、イベント情報を載せられる、サポーター向けの更新エリアです。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="squad">
+        <div class="section-inner squad">
+          <div class="squad-copy">
+            <p class="eyebrow">Squad Focus</p>
+            <h2 class="section-title">Players with<br>clear roles.</h2>
+          </div>
+          <div class="player-list">
+            <article class="player">
+              <span class="player-number">10</span>
+              <div>
+                <h3>Riku Aoyama</h3>
+                <p>中央でテンポを作るプレーメーカー。狭い場所で前を向けるのが強みです。</p>
+              </div>
+              <span class="position">MF</span>
+            </article>
+            <article class="player">
+              <span class="player-number">09</span>
+              <div>
+                <h3>Sho Minato</h3>
+                <p>ボックス内で勝負するストライカー。クロスとこぼれ球への反応でゴールを狙います。</p>
+              </div>
+              <span class="position">FW</span>
+            </article>
+            <article class="player">
+              <span class="player-number">04</span>
+              <div>
+                <h3>Ren Takagi</h3>
+                <p>ラインを押し上げるセンターバック。空中戦とロングフィードで流れを変えます。</p>
+              </div>
+              <span class="position">DF</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-band">
+        <div class="contact-inner">
+          <div>
+            <h2>Get in the stand.</h2>
+            <p>試合日程、チケット、チームニュースをひとつのサッカーサイトとして見せられる形に整えました。</p>
+          </div>
+          <a class="button" href="mailto:ticket@example.com">ticket@example.com</a>
+        </div>
+      </section>
     </main>
+
+    <script>
+      const canvas = document.getElementById("pitchCanvas");
+      const ctx = canvas.getContext("2d");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const pointer = { x: 0.5, y: 0.55 };
+      const players = [];
+      let width = 0;
+      let height = 0;
+      let pixelRatio = 1;
+      let frame = 0;
+
+      function resize() {
+        pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        width = canvas.clientWidth;
+        height = canvas.clientHeight;
+        canvas.width = Math.floor(width * pixelRatio);
+        canvas.height = Math.floor(height * pixelRatio);
+        ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+        players.length = 0;
+        const formation = [
+          [0.2, 0.52, "#60c3ff"], [0.36, 0.34, "#60c3ff"], [0.38, 0.66, "#60c3ff"],
+          [0.52, 0.45, "#60c3ff"], [0.58, 0.62, "#60c3ff"], [0.76, 0.5, "#60c3ff"],
+          [0.28, 0.2, "#ff4f5f"], [0.3, 0.82, "#ff4f5f"], [0.5, 0.24, "#ff4f5f"],
+          [0.68, 0.28, "#ff4f5f"], [0.7, 0.76, "#ff4f5f"], [0.84, 0.62, "#ff4f5f"],
+        ];
+
+        formation.forEach((item, index) => {
+          players.push({
+            x: item[0] * width,
+            y: item[1] * height,
+            baseX: item[0] * width,
+            baseY: item[1] * height,
+            color: item[2],
+            phase: index * 0.7,
+          });
+        });
+      }
+
+      function drawPitch() {
+        const stripe = Math.max(54, width / 13);
+        ctx.fillStyle = "#0b3f27";
+        ctx.fillRect(0, 0, width, height);
+
+        for (let x = 0; x < width + stripe; x += stripe) {
+          ctx.fillStyle = Math.floor(x / stripe) % 2 === 0 ? "rgba(15, 107, 61, 0.8)" : "rgba(8, 74, 43, 0.82)";
+          ctx.fillRect(x, 0, stripe, height);
+        }
+
+        ctx.strokeStyle = "rgba(248, 250, 246, 0.34)";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(width * 0.07, height * 0.14, width * 0.86, height * 0.72);
+
+        ctx.beginPath();
+        ctx.moveTo(width * 0.5, height * 0.14);
+        ctx.lineTo(width * 0.5, height * 0.86);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(width * 0.5, height * 0.5, Math.min(width, height) * 0.13, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.strokeRect(width * 0.07, height * 0.32, width * 0.15, height * 0.36);
+        ctx.strokeRect(width * 0.78, height * 0.32, width * 0.15, height * 0.36);
+        ctx.strokeRect(width * 0.07, height * 0.41, width * 0.06, height * 0.18);
+        ctx.strokeRect(width * 0.87, height * 0.41, width * 0.06, height * 0.18);
+      }
+
+      function drawBall(x, y, radius) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(frame * 0.035);
+        ctx.fillStyle = "#f8faf6";
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#07110c";
+        ctx.lineWidth = Math.max(1.5, radius * 0.14);
+        ctx.beginPath();
+        ctx.moveTo(-radius * 0.72, -radius * 0.12);
+        ctx.lineTo(-radius * 0.15, -radius * 0.48);
+        ctx.lineTo(radius * 0.44, -radius * 0.2);
+        ctx.lineTo(radius * 0.28, radius * 0.44);
+        ctx.lineTo(-radius * 0.42, radius * 0.38);
+        ctx.closePath();
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      function draw() {
+        frame += 1;
+        drawPitch();
+
+        const ballX = pointer.x * width;
+        const ballY = pointer.y * height;
+
+        players.forEach((player) => {
+          const driftX = Math.sin(frame * 0.018 + player.phase) * 9;
+          const driftY = Math.cos(frame * 0.015 + player.phase) * 7;
+          const x = player.baseX + driftX + (ballX - player.baseX) * 0.018;
+          const y = player.baseY + driftY + (ballY - player.baseY) * 0.018;
+
+          ctx.strokeStyle = "rgba(248, 250, 246, 0.18)";
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(x, y);
+          ctx.lineTo(ballX, ballY);
+          ctx.stroke();
+
+          ctx.fillStyle = player.color;
+          ctx.beginPath();
+          ctx.arc(x, y, 7, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.strokeStyle = "rgba(248, 250, 246, 0.78)";
+          ctx.stroke();
+        });
+
+        drawBall(ballX, ballY, Math.max(13, Math.min(width, height) * 0.018));
+
+        ctx.fillStyle = "rgba(7, 17, 12, 0.46)";
+        ctx.fillRect(0, 0, width, height);
+
+        if (!reducedMotion.matches) {
+          requestAnimationFrame(draw);
+        }
+      }
+
+      window.addEventListener("resize", resize);
+      window.addEventListener("pointermove", (event) => {
+        pointer.x = event.clientX / window.innerWidth;
+        pointer.y = event.clientY / window.innerHeight;
+      });
+
+      resize();
+      draw();
+    </script>
   </body>
 </html>
