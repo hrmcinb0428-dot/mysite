@@ -155,9 +155,7 @@
 
       .home-hero {
         display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-        gap: clamp(28px, 5vw, 58px);
-        align-items: center;
+        gap: 28px;
       }
 
       .eyebrow {
@@ -203,12 +201,13 @@
 
       .hub-grid {
         display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 16px;
       }
 
       .hub-card {
         position: relative;
-        min-height: 148px;
+        min-height: 178px;
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
         gap: 18px;
@@ -246,7 +245,7 @@
 
       .hub-card h2 {
         margin: 0;
-        font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+        font-size: clamp(1.2rem, 2vw, 1.65rem);
         line-height: 1.2;
       }
 
@@ -268,6 +267,51 @@
         color: var(--accent);
         font-size: 1.2rem;
         font-weight: 800;
+      }
+
+      .home-copy {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 24px;
+        align-items: end;
+      }
+
+      .home-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        min-width: min(420px, 100%);
+      }
+
+      .summary-tile {
+        min-height: 78px;
+        padding: 13px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 247, 235, 0.58);
+      }
+
+      .summary-tile strong {
+        display: block;
+        font-size: 1.45rem;
+        line-height: 1;
+      }
+
+      .summary-tile span {
+        display: block;
+        margin-top: 7px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 750;
+      }
+
+      .hub-card.primary-hub {
+        grid-column: span 3;
+      }
+
+      .hub-card.secondary-hub {
+        grid-column: span 2;
+        min-height: 148px;
       }
 
       .section-head {
@@ -339,7 +383,9 @@
 
       .ranking-grid,
       .news-grid,
-      .recommend-grid {
+      .recommend-grid,
+      .profile-grid,
+      .personal-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
@@ -349,6 +395,8 @@
       .news-card,
       .recommend-card,
       .schedule-card,
+      .account-card,
+      .profile-card,
       .comment-panel,
       .comment-list-panel {
         border: 1px solid var(--line);
@@ -484,6 +532,13 @@
         border-radius: 8px;
         background: rgba(255, 247, 235, 0.58);
         color: #5f3f29;
+      }
+
+      .detail-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 16px;
       }
 
       .poster {
@@ -755,6 +810,102 @@
         margin-top: 34px;
       }
 
+      .account-layout {
+        display: grid;
+        grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .account-card,
+      .profile-card {
+        padding: 18px;
+      }
+
+      .account-card h3,
+      .profile-card h3 {
+        margin: 0;
+        font-size: 1.16rem;
+        line-height: 1.35;
+      }
+
+      .account-status {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 18px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 247, 235, 0.62);
+      }
+
+      .account-status strong {
+        font-size: 1.18rem;
+      }
+
+      .history-list {
+        display: grid;
+        gap: 10px;
+        max-height: 390px;
+        margin-top: 12px;
+        padding-right: 4px;
+        overflow: auto;
+      }
+
+      .history-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
+        padding: 11px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 247, 235, 0.52);
+      }
+
+      .history-item input {
+        width: auto;
+        min-height: auto;
+        margin-top: 4px;
+      }
+
+      .history-item strong {
+        display: block;
+        line-height: 1.35;
+      }
+
+      .recommendation-list {
+        display: grid;
+        gap: 14px;
+        margin-top: 14px;
+      }
+
+      .personal-pick {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 14px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 247, 235, 0.56);
+      }
+
+      .personal-pick .recommend-visual {
+        width: 92px;
+      }
+
+      .profile-grid {
+        margin-top: 14px;
+      }
+
+      .profile-card {
+        min-height: 180px;
+      }
+
+      .profile-card .reason-list {
+        margin-top: 10px;
+      }
+
       .comment-panel {
         padding: 18px;
       }
@@ -871,14 +1022,26 @@
       }
 
       @media (max-width: 900px) {
-        .home-hero,
-        .comments-layout {
+        .home-copy,
+        .comments-layout,
+        .account-layout {
           grid-template-columns: 1fr;
+        }
+
+        .hub-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .hub-card.primary-hub,
+        .hub-card.secondary-hub {
+          grid-column: span 1;
         }
 
         .ranking-grid,
         .news-grid,
-        .recommend-grid {
+        .recommend-grid,
+        .profile-grid,
+        .personal-grid {
           grid-template-columns: 1fr;
         }
 
@@ -903,6 +1066,11 @@
         }
 
         .hub-card {
+          grid-template-columns: 1fr;
+        }
+
+        .hub-grid,
+        .home-summary {
           grid-template-columns: 1fr;
         }
 
@@ -944,6 +1112,14 @@
           grid-template-columns: 92px minmax(0, 1fr);
         }
 
+        .personal-pick {
+          grid-template-columns: 76px minmax(0, 1fr);
+        }
+
+        .personal-pick .recommend-visual {
+          width: 76px;
+        }
+
         .schedule-card {
           grid-template-columns: 1fr;
         }
@@ -966,48 +1142,72 @@
         <a class="nav-link" href="#news" data-route="news">ニュース</a>
         <a class="nav-link" href="#schedule" data-route="schedule">公開予定</a>
         <a class="nav-link" href="#recommend" data-route="recommend">名作ピックアップ</a>
+        <a class="nav-link" href="#account" data-route="account">プロフィール</a>
       </nav>
     </header>
 
     <main>
       <section class="view active" id="home" data-view="home" aria-labelledby="home-title">
         <div class="home-hero">
-          <div>
-            <p class="eyebrow">Movie hub</p>
-            <h1 id="home-title">映画を探す入口をひとつに。</h1>
-            <p class="lead">
-              上映中ランキング、映画ニュース、公開スケジュール、歴代名作のおすすめをすぐ確認できる映画ガイドです。見たい情報のエリアをクリックしてください。
-            </p>
+          <div class="home-copy">
+            <div>
+              <p class="eyebrow">Movie hub</p>
+              <h1 id="home-title">映画を探す入口をひとつに。</h1>
+              <p class="lead">
+                観る映画を決めるための情報を、ランキング、ニュース、予定、名作、プロフィールに整理しました。
+              </p>
+            </div>
+            <div class="home-summary" aria-label="サイト概要">
+              <div class="summary-tile">
+                <strong>5</strong>
+                <span>メインエリア</span>
+              </div>
+              <div class="summary-tile">
+                <strong>10</strong>
+                <span>上映中ランキング</span>
+              </div>
+              <div class="summary-tile">
+                <strong>AI</strong>
+                <span>履歴からおすすめ</span>
+              </div>
+            </div>
           </div>
 
           <div class="hub-grid" aria-label="メインメニュー">
-            <a class="hub-card" href="#ranking" style="--accent: var(--red);">
+            <a class="hub-card primary-hub" href="#ranking" style="--accent: var(--red);">
               <div>
                 <h2>上映中ランキング</h2>
                 <p>日本国内の週末動員ランキングとユーザー評価を一覧でチェック。</p>
               </div>
               <span class="hub-icon" aria-hidden="true">01</span>
             </a>
-            <a class="hub-card" href="#news" style="--accent: var(--blue);">
+            <a class="hub-card primary-hub" href="#account" style="--accent: var(--gold);">
+              <div>
+                <h2>あなたのおすすめ</h2>
+                <p>プロフィールと視聴履歴から、まだ観ていない候補を自動で表示。</p>
+              </div>
+              <span class="hub-icon" aria-hidden="true">02</span>
+            </a>
+            <a class="hub-card secondary-hub" href="#news" style="--accent: var(--blue);">
               <div>
                 <h2>映画界のニュース</h2>
                 <p>話題作、イベント、キャスト発表などのトピックを短く確認。</p>
               </div>
-              <span class="hub-icon" aria-hidden="true">02</span>
+              <span class="hub-icon" aria-hidden="true">03</span>
             </a>
-            <a class="hub-card" href="#schedule" style="--accent: var(--teal);">
+            <a class="hub-card secondary-hub" href="#schedule" style="--accent: var(--teal);">
               <div>
                 <h2>公開スケジュール</h2>
                 <p>これから公開・配信開始される作品を日付ごとにチェック。</p>
               </div>
-              <span class="hub-icon" aria-hidden="true">03</span>
+              <span class="hub-icon" aria-hidden="true">04</span>
             </a>
-            <a class="hub-card" href="#recommend" style="--accent: var(--green);">
+            <a class="hub-card secondary-hub" href="#recommend" style="--accent: var(--green);">
               <div>
                 <h2>名作ピックアップ</h2>
                 <p>興行収入、受賞歴、ユーザー評価をもとにジャンル別のおすすめを紹介。</p>
               </div>
-              <span class="hub-icon" aria-hidden="true">04</span>
+              <span class="hub-icon" aria-hidden="true">05</span>
             </a>
           </div>
         </div>
@@ -1112,6 +1312,61 @@
         <p class="source">
           配信状況は2026年5月21日時点の確認情報です。サブスクリプション対象、レンタル、配信終了は変わる場合があります。
         </p>
+      </section>
+
+      <section class="view" id="account" data-view="account" aria-labelledby="account-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Personal profile</p>
+            <h2 class="page-title" id="account-title">プロフィールとあなたのおすすめ</h2>
+            <p class="section-note">
+              アカウントを作って視聴履歴を登録すると、履歴からジャンル傾向を計算しておすすめ作品を表示します。他ユーザーのプロフィールもこのページで確認できます。
+            </p>
+          </div>
+        </div>
+
+        <div class="account-layout">
+          <div class="account-card">
+            <div class="account-status" id="active-profile"></div>
+
+            <form id="account-form">
+              <h3>アカウント作成</h3>
+              <label for="account-name">表示名</label>
+              <input id="account-name" name="name" type="text" maxlength="28" placeholder="例：映画好き" required>
+
+              <label for="account-bio">プロフィール</label>
+              <textarea id="account-bio" name="bio" maxlength="160" placeholder="好きなジャンルや映画の見方など"></textarea>
+
+              <div class="form-actions">
+                <button class="button primary" type="submit">作成する</button>
+              </div>
+            </form>
+
+            <label for="account-select">アカウント切替</label>
+            <select id="account-select"></select>
+          </div>
+
+          <div>
+            <div class="account-card">
+              <h3>あなたのおすすめ</h3>
+              <p class="summary">
+                視聴履歴のジャンル、作品タグ、評価をもとに、まだ観ていない作品を優先して表示します。
+              </p>
+              <div class="recommendation-list" id="personal-recommendations"></div>
+            </div>
+
+            <div class="account-card" style="margin-top: 18px;">
+              <h3>視聴履歴</h3>
+              <p class="summary">観た作品にチェックを入れると、プロフィールとおすすめに反映されます。</p>
+              <div class="history-list" id="history-list"></div>
+            </div>
+
+            <div class="account-card" style="margin-top: 18px;">
+              <h3>みんなのプロフィール</h3>
+              <div class="profile-grid" id="profile-list"></div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -1483,11 +1738,21 @@
       const newsList = document.querySelector("#news-list");
       const scheduleList = document.querySelector("#schedule-list");
       const recommendList = document.querySelector("#recommend-list");
+      const accountForm = document.querySelector("#account-form");
+      const accountName = document.querySelector("#account-name");
+      const accountBio = document.querySelector("#account-bio");
+      const accountSelect = document.querySelector("#account-select");
+      const activeProfile = document.querySelector("#active-profile");
+      const historyList = document.querySelector("#history-list");
+      const personalRecommendations = document.querySelector("#personal-recommendations");
+      const profileList = document.querySelector("#profile-list");
       const storageKey = "cinema-guide-japan-comments";
+      const accountStorageKey = "cinema-guide-japan-accounts";
+      const activeAccountKey = "cinema-guide-japan-active-account";
 
       function routeFromHash() {
         const route = window.location.hash.replace("#", "");
-        return ["home", "ranking", "news", "schedule", "recommend"].includes(route) ? route : "home";
+        return ["home", "ranking", "news", "schedule", "recommend", "account"].includes(route) ? route : "home";
       }
 
       function showRoute(route) {
@@ -1501,7 +1766,8 @@
           ranking: "上映中ランキング",
           news: "映画界のニュース",
           schedule: "公開スケジュール",
-          recommend: "歴代おすすめ作品"
+          recommend: "歴代おすすめ作品",
+          account: "プロフィール"
         };
         return titles[route] || "ホーム";
       }
@@ -1606,6 +1872,243 @@
         });
       }
 
+      function slugify(value) {
+        return value
+          .toLowerCase()
+          .replace(/[^\p{L}\p{N}]+/gu, "-")
+          .replace(/^-|-$/g, "");
+      }
+
+      function catalogItems() {
+        const rankingItems = movies.map((movie) => ({
+          id: movieId(movie),
+          title: movie.title,
+          genre: movie.genre,
+          summary: movie.summary,
+          year: movie.release.replace(/年.*/, ""),
+          rating: movie.rating,
+          reasons: ["上映中", `★ ${movie.rating}`],
+          services: [],
+          colors: movie.colors,
+          motif: imageProfile(movie.title).motif,
+          source: "上映中ランキング"
+        }));
+
+        const classicItems = recommendations.flatMap((genre) =>
+          genre.picks.map((item) => {
+            const profile = imageProfile(item.title);
+            return {
+              id: `classic-${slugify(item.title)}`,
+              title: item.title,
+              genre: genre.genre,
+              summary: item.summary,
+              year: item.year,
+              rating: 4.4,
+              reasons: item.reasons,
+              services: item.services,
+              colors: profile.colors,
+              motif: profile.motif,
+              source: "名作ピックアップ"
+            };
+          })
+        );
+
+        return [...rankingItems, ...classicItems];
+      }
+
+      function loadAccounts() {
+        try {
+          return JSON.parse(localStorage.getItem(accountStorageKey)) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveAccounts(accounts) {
+        localStorage.setItem(accountStorageKey, JSON.stringify(accounts));
+      }
+
+      function activeAccountId() {
+        return localStorage.getItem(activeAccountKey) || "";
+      }
+
+      function setActiveAccount(id) {
+        localStorage.setItem(activeAccountKey, id);
+      }
+
+      function getActiveAccount() {
+        const accounts = loadAccounts();
+        return accounts.find((account) => account.id === activeAccountId()) || accounts[0] || null;
+      }
+
+      function selectedGenres(account) {
+        const watched = new Set(account?.history || []);
+        const genres = new Map();
+        catalogItems().forEach((item) => {
+          if (!watched.has(item.id)) {
+            return;
+          }
+          item.genre.split(/[／/・]/).forEach((genre) => {
+            const key = genre.trim();
+            if (key) {
+              genres.set(key, (genres.get(key) || 0) + 1);
+            }
+          });
+        });
+        return genres;
+      }
+
+      function recommendForAccount(account, limit = 4) {
+        const catalog = catalogItems();
+        const watched = new Set(account?.history || []);
+        const genres = selectedGenres(account);
+
+        return catalog
+          .filter((item) => !watched.has(item.id))
+          .map((item) => {
+            const itemGenres = item.genre.split(/[／/・]/).map((genre) => genre.trim()).filter(Boolean);
+            const genreScore = itemGenres.reduce((score, genre) => score + (genres.get(genre) || 0), 0);
+            const reasonScore = item.reasons.length * 0.35;
+            const ratingScore = item.rating || 4;
+            const coldStartBonus = watched.size === 0 && item.source === "名作ピックアップ" ? 1.2 : 0;
+            return {
+              ...item,
+              score: genreScore * 3 + reasonScore + ratingScore + coldStartBonus,
+              matchText: genreScore > 0
+                ? `視聴履歴の${itemGenres.filter((genre) => genres.has(genre)).join("・")}傾向に近い作品`
+                : "評価・受賞歴・人気をもとにした候補"
+            };
+          })
+          .sort((a, b) => b.score - a.score || b.rating - a.rating)
+          .slice(0, limit);
+      }
+
+      function addWatchedMovie(id) {
+        const accounts = loadAccounts();
+        const account = accounts.find((item) => item.id === activeAccountId());
+        if (!account) {
+          window.location.hash = "#account";
+          showRoute("account");
+          renderAccountPage();
+          return;
+        }
+        account.history = Array.from(new Set([...(account.history || []), id]));
+        saveAccounts(accounts);
+        renderAccountPage();
+      }
+
+      function renderAccountPage() {
+        const accounts = loadAccounts();
+        const active = getActiveAccount();
+        if (active && activeAccountId() !== active.id) {
+          setActiveAccount(active.id);
+        }
+
+        accountSelect.innerHTML = accounts.length
+          ? accounts.map((account) => `<option value="${account.id}" ${active?.id === account.id ? "selected" : ""}>${escapeHtml(account.name)}</option>`).join("")
+          : `<option value="">アカウント未作成</option>`;
+
+        renderActiveProfile(active);
+        renderHistoryList(active);
+        renderPersonalRecommendations(active);
+        renderProfiles(accounts);
+      }
+
+      function renderActiveProfile(account) {
+        if (!account) {
+          activeProfile.innerHTML = `
+            <strong>アカウント未作成</strong>
+            <span class="meta">まず表示名を入力してアカウントを作成してください。</span>
+          `;
+          return;
+        }
+
+        const watchedCount = account.history?.length || 0;
+        const genres = Array.from(selectedGenres(account).entries())
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([genre]) => genre);
+
+        activeProfile.innerHTML = `
+          <span class="tag">ログイン中</span>
+          <strong>${escapeHtml(account.name)}</strong>
+          <span class="meta">${escapeHtml(account.bio || "プロフィール未設定")}</span>
+          <span class="meta">視聴履歴 ${watchedCount}作品${genres.length ? `・好きな傾向 ${genres.join(" / ")}` : ""}</span>
+        `;
+      }
+
+      function renderHistoryList(account) {
+        const watched = new Set(account?.history || []);
+        historyList.innerHTML = catalogItems()
+          .map((item) => `
+            <label class="history-item">
+              <input type="checkbox" value="${item.id}" ${watched.has(item.id) ? "checked" : ""} ${account ? "" : "disabled"}>
+              <span>
+                <strong>${item.title}</strong>
+                <span class="meta">${item.genre}・${item.source}</span>
+              </span>
+            </label>
+          `)
+          .join("");
+      }
+
+      function renderPersonalRecommendations(account) {
+        if (!account) {
+          personalRecommendations.innerHTML = `<div class="empty">アカウント作成後、視聴履歴からおすすめを表示します。</div>`;
+          return;
+        }
+
+        const picks = recommendForAccount(account);
+        personalRecommendations.innerHTML = picks
+          .map((item) => `
+            <article class="personal-pick">
+              <div class="recommend-visual">
+                <img src="${posterImage(item.title, item.colors, item.motif)}" alt="${item.title}の抽象イメージ">
+              </div>
+              <div>
+                <span class="tag">${item.genre}</span>
+                <h3>${item.title}</h3>
+                <p class="summary">${item.summary}</p>
+                <div class="reason-list">
+                  <span class="reason-chip">${item.matchText}</span>
+                  ${item.reasons.slice(0, 2).map((reason) => `<span class="reason-chip">${reason}</span>`).join("")}
+                </div>
+              </div>
+            </article>
+          `)
+          .join("");
+      }
+
+      function renderProfiles(accounts) {
+        if (accounts.length === 0) {
+          profileList.innerHTML = `<div class="empty">まだプロフィールはありません。</div>`;
+          return;
+        }
+
+        const catalog = catalogItems();
+        profileList.innerHTML = accounts
+          .map((account) => {
+            const watched = catalog.filter((item) => account.history?.includes(item.id));
+            const genres = Array.from(selectedGenres(account).entries())
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 3)
+              .map(([genre]) => genre);
+            return `
+              <article class="profile-card">
+                <span class="tag">${account.id === activeAccountId() ? "あなた" : "ユーザー"}</span>
+                <h3>${escapeHtml(account.name)}</h3>
+                <p class="summary">${escapeHtml(account.bio || "プロフィール未設定")}</p>
+                <p class="meta">視聴履歴 ${watched.length}作品</p>
+                <div class="reason-list">
+                  ${(genres.length ? genres : ["傾向未登録"]).map((genre) => `<span class="reason-chip">${genre}</span>`).join("")}
+                </div>
+                <p class="summary">${watched.slice(0, 4).map((item) => item.title).join("、") || "視聴履歴はまだありません。"}</p>
+              </article>
+            `;
+          })
+          .join("");
+      }
+
       function renderMovies(sortBy = "rank") {
         const sortedMovies = [...movies].sort((a, b) => {
           if (sortBy === "rating") {
@@ -1701,6 +2204,10 @@
                 <strong>監督・制作コメント</strong>
                 <p class="summary">${detail.comment}</p>
               </div>
+              <div class="detail-actions">
+                <button class="button primary" type="button" data-add-watched="${movieIdValue}">視聴済みに追加</button>
+                <a class="button" href="#account">プロフィールで確認</a>
+              </div>
             </div>
           </div>
         `;
@@ -1708,6 +2215,9 @@
           movieDetail.classList.remove("open");
           movieDetail.innerHTML = "";
           rankingList.querySelectorAll(".movie-card").forEach((card) => card.classList.remove("selected"));
+        });
+        movieDetail.querySelector("[data-add-watched]").addEventListener("click", () => {
+          addWatchedMovie(movieIdValue);
         });
         movieDetail.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -1838,7 +2348,13 @@
           .join("");
       }
 
-      window.addEventListener("hashchange", () => showRoute(routeFromHash()));
+      window.addEventListener("hashchange", () => {
+        const route = routeFromHash();
+        showRoute(route);
+        if (route === "account") {
+          renderAccountPage();
+        }
+      });
 
       sortButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -1869,6 +2385,51 @@
       });
 
       movieSelect.addEventListener("change", renderComments);
+
+      accountForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const name = accountName.value.trim();
+        if (!name) {
+          return;
+        }
+        const accounts = loadAccounts();
+        const account = {
+          id: `account-${Date.now()}`,
+          name,
+          bio: accountBio.value.trim(),
+          history: []
+        };
+        accounts.push(account);
+        saveAccounts(accounts);
+        setActiveAccount(account.id);
+        accountForm.reset();
+        renderAccountPage();
+      });
+
+      accountSelect.addEventListener("change", () => {
+        setActiveAccount(accountSelect.value);
+        renderAccountPage();
+      });
+
+      historyList.addEventListener("change", (event) => {
+        if (event.target.type !== "checkbox") {
+          return;
+        }
+        const accounts = loadAccounts();
+        const account = accounts.find((item) => item.id === activeAccountId());
+        if (!account) {
+          return;
+        }
+        const selected = new Set(account.history || []);
+        if (event.target.checked) {
+          selected.add(event.target.value);
+        } else {
+          selected.delete(event.target.value);
+        }
+        account.history = Array.from(selected);
+        saveAccounts(accounts);
+        renderAccountPage();
+      });
 
       commentForm.addEventListener("submit", (event) => {
         event.preventDefault();
@@ -1910,6 +2471,7 @@
       renderNews();
       renderSchedule();
       renderRecommendations();
+      renderAccountPage();
       populateMovieSelect();
       renderComments();
       showRoute(routeFromHash());
